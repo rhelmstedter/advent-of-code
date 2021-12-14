@@ -1,7 +1,7 @@
 test = """199 200 208 210 200 207 240 269 260 263""".split()
 
-with open("inputs/day1.txt", "r") as input:
-    sonar_sweeps = input.read().split("\n")
+with open("inputs/day1.txt", "r", encoding="utf8") as p_input:
+    sonar_sweeps = p_input.readlines()
 
 
 def two_sliding_window(sweeps):

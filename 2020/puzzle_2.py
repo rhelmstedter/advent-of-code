@@ -21,6 +21,7 @@ def password_validator(line):
         return False
     return True
 
+
 def password_validator2(line):
     first_position = int(line[0].split("-")[0])
     second_position = int(line[0].split("-")[1])
@@ -64,4 +65,5 @@ pyperclip.copy(num_valid_password)
 
 if __name__ == "__main__":
     import doctest
+
     doctest.testmod()

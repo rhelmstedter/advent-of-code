@@ -1,5 +1,6 @@
 import pyperclip
 
+
 def get_row_number(boarding_pass):
     row_binary = boarding_pass[:-3].replace("F", "0").replace("B", "1")
     return int(row_binary, 2)
@@ -31,8 +32,8 @@ print(
     )
 )
 
-with open("inputs/day_5_input.txt", 'r') as input:
-    boarding_passes = [line.strip("\n") for line in input.readlines()] 
+with open("inputs/day_5_input.txt", "r") as input:
+    boarding_passes = [line.strip("\n") for line in input.readlines()]
 
 seat_ids = []
 for boarding_pass in boarding_passes:
@@ -40,7 +41,6 @@ for boarding_pass in boarding_passes:
     seat_number = get_seat_number(boarding_pass)
     id_number = 8 * row_number + seat_number
     seat_ids.append(id_number)
-
 
 
 for seat in range(min(seat_ids), max(seat_ids)):
