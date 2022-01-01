@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-with open("./inputs/day2.txt") as input:
-    course = input.readlines()
-
-print(course)
-=======
 from pyperclip import copy
 
 with open("inputs/day2.txt", "r") as input:
@@ -59,4 +53,3 @@ def part_2():
 if __name__ == "__main__":
     # part_1()
     part_2()
->>>>>>> 442fe14be1849c24db0e1a6841f30a8fa1ff469e
