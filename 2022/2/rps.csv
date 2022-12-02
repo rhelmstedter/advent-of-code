@@ -1,0 +1,4 @@
+my_move,A,B,C
+X,tie,lose,win
+Y,win,tie,lose
+Z,lose,win,tie
