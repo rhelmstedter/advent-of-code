@@ -1,6 +1,6 @@
 day = ...
 
-with open(f"../inputs/{day}") as input:
+with open(f"../inputs/{day}.txt") as input:
     lines = [line.strip("\n") for line in input.readlines()]
 
 

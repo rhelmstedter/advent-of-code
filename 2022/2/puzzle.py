@@ -7,7 +7,7 @@ with open(f"../inputs/{day}.txt") as input:
 
 
 def part1(lines):
-    """total score from strategy"""
+    """total score where strategy represents the preferred choice."""
     df = pd.read_csv("./rps.csv", index_col="my_move")
     my_score = 0
     for line in lines:
@@ -29,7 +29,7 @@ def part1(lines):
 
 
 def part2(lines):
-    """ """
+    """total score where second character represents the outcome."""
     df = pd.read_csv("./new_rules.csv", index_col="my_move")
     my_score = 0
     for line in lines:
