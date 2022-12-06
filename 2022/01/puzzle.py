@@ -7,13 +7,13 @@ with open(f"../inputs/{day}.txt") as input:
 def part1(lines):
     """elf with the most calories"""
     elves = []
-    current_elf = 0
+    current_elf_cal = 0
     for line in lines:
         if line:
-            current_elf += int(line)
+            current_elf_cal += int(line)
         else:
-            elves.append(current_elf)
-            current_elf = 0
+            elves.append(current_elf_cal)
+            current_elf_cal = 0
     return sorted(elves)
 
 
