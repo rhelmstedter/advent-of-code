@@ -28,23 +28,34 @@ def _parse_move(stacks: dict[list], move: str) -> dict:
     return stacks
 
 
+def _parse_move_part2(stacks: dict[list], move: str) -> dict:
+    count, start, end = [int(i) for i in move.split() if i.isnumeric()]
+    crates_to_move = stacks[start][-count:]
+    stacks[start] = stacks[start][:-count]
+    stacks[end] = stacks[end] + crates_to_move
+    return stacks
+
+
 def part1(lines):
     """ """
     diagram, moves = lines.split("\n\n")
     stacks = _parse_diagram(diagram)
-    for move in moves.split('\n')[1:]:
-        if move != '':
-            stacks = _parse_move(stacks, move)
+    for move in moves.strip("\n").split("\n"):
+        stacks = _parse_move(stacks, move)
     return "".join(stack[-1] for stack in stacks.values())
 
 
 def part2(lines):
     """ """
-    ...
+    diagram, moves = lines.split("\n\n")
+    stacks = _parse_diagram(diagram)
+    for move in moves.strip("\n").split("\n"):
+        stacks = _parse_move_part2(stacks, move)
+    return "".join(stack[-1] for stack in stacks.values())
 
 
 if __name__ == "__main__":
     day = 5
-    get_lines(day)
+    lines = get_lines(day)
     # submit(part1(lines), part="a", day=day, year=2022)
-    # submit(part2(lines), part="b", day=day, year=2022)
+    submit(part2(lines), part="b", day=day, year=2022)
