@@ -3,7 +3,7 @@ from aocd import get_data, submit
 
 def get_lines(day: int) -> list:
     """Uses aocd to get the input then splits it into lines."""
-    return [line.strip("\n") for line in get_data(day=day, year=2022)]
+    return get_data(day=day, year=2022).splitlines()
 
 
 def part1(lines):
