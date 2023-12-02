@@ -1,5 +1,5 @@
 import aocd
-import regex as re
+import re
 
 
 WORDS_TO_DIGITS = {
@@ -32,21 +32,25 @@ def part1(data):
 
 def part2(data):
     """ """
-    pattern = r"""
-    \d
-    | one
-    | two
-    | three
-    | four
-    | five
-    | six
-    | seven
-    | eight
-    | nine
+    pattern = r"""(?=
+        (
+            \d
+            | one
+            | two
+            | three
+            | four
+            | five
+            | six
+            | seven
+            | eight
+            | nine
+        )
+    )
     """
     calibrations = []
     for line in data:
-        digits = re.findall(pattern, line, overlapped=True, flags=re.VERBOSE)
+        matches = re.finditer(pattern, line, flags=re.VERBOSE)
+        digits = [match.group(1) for match in matches]
         converted = []
         for d in digits:
             if d in WORDS_TO_DIGITS:
@@ -59,6 +63,5 @@ def part2(data):
 if __name__ == "__main__":
     day = 1
     data = get_data(day, True)
-    part2(data)
     # aocd.submit(part1(data), part="a", day=day, year=2023)
-    aocd.submit(part2(data), part="b", day=day, year=2023)
+    # aocd.submit(part2(data), part="b", day=day, year=2023)
