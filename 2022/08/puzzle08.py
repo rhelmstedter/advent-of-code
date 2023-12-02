@@ -1,4 +1,5 @@
 import aocd
+import pandas as pd
 
 
 def get_data(day: int, lines: bool = True) -> str | list:
@@ -21,7 +22,7 @@ def part2(data):
 
 if __name__ == "__main__":
 
-    day = ...
+    day = 8
     data = get_data(day)
     # submit(part1(lines), part="a", day=day, year=2022)
     # submit(part2(lines), part="b", day=day, year=2022)
