@@ -44,7 +44,6 @@ def part2(data):
                 if int(count) > max_counts[color]:
                     max_counts[color] = int(count)
         powers.append(reduce(mul, max_counts.values()))
-
     return sum(powers)
 
 
@@ -52,4 +51,4 @@ if __name__ == "__main__":
     day = 2
     data = get_data(day)
     # aocd.submit(part1(data), part="a", day=day, year=2023)
-    aocd.submit(part2(data), part="b", day=day, year=2023)
+    # aocd.submit(part2(data), part="b", day=day, year=2023)

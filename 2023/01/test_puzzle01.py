@@ -1,6 +1,5 @@
 from puzzle01 import part1, part2
 
-
 PART1_INPUT = """1abc2
 pqr3stu8vwx
 a1b2c3d4e5f

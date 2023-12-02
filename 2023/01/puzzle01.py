@@ -1,6 +1,6 @@
-import aocd
 import re
 
+import aocd
 
 WORDS_TO_DIGITS = {
     "one": "1",
