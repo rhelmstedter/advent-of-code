@@ -17,19 +17,16 @@ class Scratchcard:
     winning_nums: set[int]
     your_nums: set[int]
 
-    def calc_points(self) -> int:
-        matches = self.winning_nums & self.your_nums
-        count = len(matches)
-        if matches and count == 1:
-            return 1
-        elif matches:
-            return 2 ** (count - 1)
-        else:
-            return 0
-
-    def count_matches(self) -> int:
+    def count_wins(self) -> int:
         matches = self.winning_nums & self.your_nums
         return len(matches)
+
+    def calc_points(self) -> int:
+        wins = self.count_wins()
+        if wins:
+            return 2 ** (wins - 1)
+        else:
+            return 0
 
 
 def _parse_line(line: str) -> Scratchcard:
@@ -37,7 +34,9 @@ def _parse_line(line: str) -> Scratchcard:
     id = int(card_id.split()[-1])
     winning_nums, your_nums = nums.split("|")
     return Scratchcard(
-        id, {int(n) for n in winning_nums.split()}, {int(n) for n in your_nums.split()}
+        id,
+        {int(n) for n in winning_nums.split()},
+        {int(n) for n in your_nums.split()},
     )
 
 
@@ -52,7 +51,7 @@ def part2(data):
     for line in data:
         card = _parse_line(line)
         current_card_count = card_counts[card.id]
-        for copy in range(card.id + 1, card.id + card.count_matches() + 1):
+        for copy in range(card.id + 1, card.id + card.count_wins() + 1):
             card_counts[copy] += 1 * current_card_count
     return sum(card_counts.values())
 
