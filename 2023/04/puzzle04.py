@@ -29,7 +29,7 @@ class Scratchcard:
             return 0
 
 
-def _parse_line(line: str) -> Scratchcard:
+def scratchcard_from(line: str) -> Scratchcard:
     card_id, nums = line.split(":")
     id = int(card_id.split()[-1])
     winning_nums, your_nums = nums.split("|")
@@ -42,17 +42,16 @@ def _parse_line(line: str) -> Scratchcard:
 
 def part1(data):
     """ """
-    return sum(_parse_line(line).calc_points() for line in data)
+    return sum(scratchcard_from(line).calc_points() for line in data)
 
 
 def part2(data):
     """ """
     card_counts = {i: 1 for i in range(1, len(data) + 1)}
     for line in data:
-        card = _parse_line(line)
-        current_card_count = card_counts[card.id]
+        card = scratchcard_from(line)
         for copy in range(card.id + 1, card.id + card.count_wins() + 1):
-            card_counts[copy] += 1 * current_card_count
+            card_counts[copy] += card_counts[card.id]
     return sum(card_counts.values())
 
 
