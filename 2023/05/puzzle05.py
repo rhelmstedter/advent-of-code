@@ -40,10 +40,7 @@ def _parser(data) -> tuple[list[int], dict[str, Mapping]]:
 def _mapper(param, map: list[Mapping]):
     for m in map:
         if param in range(m.source, m.source + m._range + 1):
-            if m.source > m.destination:
-                return param - (m.source - m.destination)
-            if m.source < m.destination:
-                return param + (m.destination - m.source)
+            return param - m.source + m.destination
     return param
 
 
