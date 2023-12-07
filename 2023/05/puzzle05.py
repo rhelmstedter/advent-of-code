@@ -48,14 +48,11 @@ def _mapper(param, map: list[Mapping]):
 
 
 def start_to_end(seed, maps):
-    soil = _mapper(seed, maps["seed-to-soil map"])
-    fertilizer = _mapper(soil, maps["soil-to-fertilizer map"])
-    water = _mapper(fertilizer, maps["fertilizer-to-water map"])
-    light = _mapper(water, maps["water-to-light map"])
-    temp = _mapper(light, maps["light-to-temperature map"])
-    humidity = _mapper(temp, maps["temperature-to-humidity map"])
-    location = _mapper(humidity, maps["humidity-to-location map"])
-    return location
+    next = seed
+    for map in maps.values():
+        result = _mapper(next, map)
+        next = result
+    return result
 
 
 def part1(data):
@@ -81,4 +78,4 @@ if __name__ == "__main__":
     day = 5
     data = get_data(day)
     # aocd.submit(part1(data), part="a", day=day, year=2023)
-    aocd.submit(part2(data), part="b", day=day, year=2023)
+    # aocd.submit(part2(data), part="b", day=day, year=2023)
