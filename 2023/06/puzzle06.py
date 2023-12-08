@@ -1,4 +1,5 @@
 import aocd
+import math
 
 
 def get_data(day: int, lines: bool = True) -> str | list:
@@ -27,7 +28,17 @@ def part2(data):
     """ """
     time = int("".join([t for t in data[0].split(":")[-1].split()]))
     distance = int("".join([d for d in data[1].split(":")[-1].split()]))
-    return len(_get_wins(time, distance))
+
+    # # my original solution
+    # return len(_get_wins(time, distance))
+
+    # with math
+    a = 1
+    b = time
+    c = distance
+    x_pos = math.floor((-b + math.sqrt(b**2 - 4 * a * c)) / (2 * a))
+    x_min = math.ceil((-b - math.sqrt(b**2 - 4 * a * c)) / (2 * a))
+    return x_pos - x_min + 1
 
 
 if __name__ == "__main__":
