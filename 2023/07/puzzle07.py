@@ -1,7 +1,7 @@
 import aocd
-from rich import print
 from dataclasses import dataclass
 from collections import Counter
+from enum import IntEnum
 
 
 def get_data(day: int, lines: bool = True) -> str | list:
@@ -12,9 +12,19 @@ def get_data(day: int, lines: bool = True) -> str | list:
         return aocd.get_data(day=day, year=2023)
 
 
+class HandType(IntEnum):
+    FIVE_OF_A_KIND = 6
+    FOUR_OF_A_KIND = 5
+    FULL_HOUSE = 4
+    THREE_OF_A_KIND = 3
+    TWO_PAIRS = 2
+    ONE_PAIR = 1
+    HIGH_CARD = 0
+
+
 @dataclass(order=True)
 class Hand:
-    _type: int
+    hand_type: HandType
     card_values: tuple
     cards: str
     bid: int
@@ -53,52 +63,30 @@ CARD_VALUES_PART2 = {
 }
 
 
-def get_hand_type(cards):
+def get_hand_type(cards, with_joker=False):
     count = Counter(cards)
+    if with_joker:
+        if "J" in cards and len(set(cards)) > 1:
+            if count.most_common()[0][0] == "J":
+                count[count.most_common()[1][0]] += count["J"]
+            else:
+                count[count.most_common()[0][0]] += count["J"]
+            del count["J"]
     mc = count.most_common()
     if mc[0][1] == 5:
-        return 6
+        return HandType.FIVE_OF_A_KIND
     elif mc[0][1] == 4:
-        return 5
+        return HandType.FOUR_OF_A_KIND
     elif mc[0][1] == 3 and mc[1][1] == 2:
-        return 4
+        return HandType.FULL_HOUSE
     elif mc[0][1] == 3:
-        return 3
+        return HandType.THREE_OF_A_KIND
     elif mc[0][1] == 2 and mc[1][1] == 2:
-        return 2
+        return HandType.TWO_PAIRS
     elif mc[0][1] == 2:
-        return 1
+        return HandType.ONE_PAIR
     else:
-        return 0
-
-
-def get_hand_type_part2(cards):
-    count = Counter(cards)
-    if "J" in cards and len(set(cards)) > 1:
-        if count.most_common()[0][0] == "J":
-            count[count.most_common()[1][0]] += count["J"]
-        else:
-            count[count.most_common()[0][0]] += count["J"]
-        del count["J"]
-    mc = count.most_common()
-    if mc[0][1] == 5:
-        return 6
-    elif mc[0][1] == 4:
-        return 5
-    elif mc[0][1] == 3 and mc[1][1] == 2:
-        return 4
-    elif mc[0][1] == 3:
-        return 3
-    elif mc[0][1] == 2 and mc[1][1] == 2:
-        return 2
-    elif mc[0][1] == 2:
-        return 1
-    else:
-        return 0
-
-
-def tie_breaker_score(hand):
-    return sum(CARD_VALUES_PART1[card] for card in hand.cards)
+        return HandType.HIGH_CARD
 
 
 def part1(data):
@@ -109,7 +97,9 @@ def part1(data):
         hand_type = get_hand_type(cards)
         card_values = tuple([CARD_VALUES_PART1[card] for card in cards])
         hands.append(
-            Hand(cards=cards, bid=int(bid), _type=hand_type, card_values=card_values)
+            Hand(
+                cards=cards, bid=int(bid), hand_type=hand_type, card_values=card_values
+            )
         )
     return sum(rank * hand.bid for rank, hand in enumerate(sorted(hands), 1))
 
@@ -119,10 +109,12 @@ def part2(data):
     hands = []
     for line in data:
         cards, bid = line.split()
-        hand_type = get_hand_type_part2(cards)
+        hand_type = get_hand_type(cards, True)
         card_values = tuple([CARD_VALUES_PART2[card] for card in cards])
         hands.append(
-            Hand(cards=cards, bid=int(bid), _type=hand_type, card_values=card_values)
+            Hand(
+                cards=cards, bid=int(bid), hand_type=hand_type, card_values=card_values
+            )
         )
     return sum(rank * hand.bid for rank, hand in enumerate(sorted(hands), 1))
 
@@ -130,5 +122,6 @@ def part2(data):
 if __name__ == "__main__":
     day = 7
     data = get_data(day)
+    print(part2(data))
     # aocd.submit(part1(data), part="a", day=day, year=2023)
     # aocd.submit(part2(data), part="b", day=day, year=2023)
