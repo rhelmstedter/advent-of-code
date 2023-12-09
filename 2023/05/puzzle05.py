@@ -39,8 +39,15 @@ def _parser(data) -> tuple[list[int], dict[str, Mapping]]:
 
 def _mapper(param, map: list[Mapping]):
     for m in map:
-        if param in range(m.source, m.source + m._range + 1):
+        if param in range(m.source, m.source + m._range):
             return param - m.source + m.destination
+    return param
+
+
+def rev_mapper(param, map: list[Mapping]):
+    for m in map:
+        if param in range(m.destination, m.destination + m._range):
+            return param + m.source - m.destination
     return param
 
 
@@ -48,6 +55,14 @@ def start_to_end(seed, maps):
     next = seed
     for map in maps.values():
         result = _mapper(next, map)
+        next = result
+    return result
+
+
+def end_to_start(seed, maps):
+    next = seed
+    for map in reversed(maps.values()):
+        result = rev_mapper(next, map)
         next = result
     return result
 
@@ -61,14 +76,34 @@ def part1(data):
     return min(locations)
 
 
+def reverse_lookup_seed(location: int, maps: dict[str, list[Mapping]]) -> int:
+    value = location
+    for current_map in reversed(maps.values()):
+        value = next(
+            (
+                m.source + (value - m.destination)
+                for m in current_map
+                if value in range(m.destination, m.destination + m._range)
+            ),
+            value,  # fallback
+        )
+    return value
+
+
 def part2(data):
-    """This doesn't work, you know because the numbers are real big."""
+    """Tried reverse mapping. That didn't work either."""
+
     seeds, maps = _parser(data)
-    locations = []
-    for idx in track(range(0, len(seeds), 2)):
-        for seed in range(seeds[idx], seeds[idx] + seeds[idx + 1] + 1):
-            locations.append(start_to_end(seed, maps))
-    return min(locations)
+    print(maps)
+    seed_ranges = [
+        range(seeds[i], seeds[i] + seeds[i + 1]) for i in range(0, len(seeds), 2)
+    ]
+    location = 0
+    while True:
+        potential_seed = reverse_lookup_seed(location, maps)
+        if any(potential_seed in seed_range for seed_range in seed_ranges):
+            return location
+        location += 1
 
 
 if __name__ == "__main__":

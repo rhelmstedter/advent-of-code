@@ -1,4 +1,4 @@
-from puzzle05 import part1, part2, _parser, _mapper
+from puzzle05 import part1, part2, _parser, _mapper, rev_mapper
 from rich import print
 
 SAMPLE_INPUT = """seeds: 79 14 55 13
@@ -48,6 +48,14 @@ def test_mapper():
     assert _mapper(55, maps["seed-to-soil map"]) == 57
     assert _mapper(13, maps["seed-to-soil map"]) == 13
     assert _mapper(81, maps["water-to-light map"]) == 74
+
+
+def test_rev_mapper():
+    assert rev_mapper(81, maps["seed-to-soil map"]) == 79
+    assert rev_mapper(14, maps["seed-to-soil map"]) == 14
+    assert rev_mapper(57, maps["seed-to-soil map"]) == 55
+    assert rev_mapper(13, maps["seed-to-soil map"]) == 13
+    assert rev_mapper(74, maps["water-to-light map"]) == 81
 
 
 def test_part1():
