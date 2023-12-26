@@ -5,7 +5,7 @@ from enum import IntEnum
 
 
 def get_data(day: int, lines: bool = True) -> str | list:
-    """Uses aocd to get the input then splits it into lines."""
+    """Use aocd to get the input then splits it into lines."""
     if lines:
         return aocd.get_data(day=day, year=2023).splitlines()
     else:
@@ -98,7 +98,7 @@ def part1(data):
         card_values = tuple([CARD_VALUES_PART1[card] for card in cards])
         hands.append(
             Hand(
-                cards=cards, bid=int(bid), hand_type=hand_type, card_values=card_values
+                cards=cards, bid=int(bid), hand_type=hand_type, card_values=card_values,
             )
         )
     return sum(rank * hand.bid for rank, hand in enumerate(sorted(hands), 1))
@@ -113,7 +113,7 @@ def part2(data):
         card_values = tuple([CARD_VALUES_PART2[card] for card in cards])
         hands.append(
             Hand(
-                cards=cards, bid=int(bid), hand_type=hand_type, card_values=card_values
+                cards=cards, bid=int(bid), hand_type=hand_type, card_values=card_values,
             )
         )
     return sum(rank * hand.bid for rank, hand in enumerate(sorted(hands), 1))

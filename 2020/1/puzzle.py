@@ -24,9 +24,8 @@ def get_three_numbers_sum_to(expenses, expected) -> Tuple[int, int, int]:
 
 
 def part_1():
-    with open("inputs/day_1_input.txt", "r") as report:
+    with open("input", "r") as report:
         expenses = [int(expense.strip()) for expense in report.readlines()]
-
     values = get_two_numbers_sum(expenses, 2020)
     print(reduce(lambda x, y: x * y, values))
 
@@ -34,11 +33,10 @@ def part_1():
 def part_2():
     with open("inputs/day_1_input.txt", "r") as report:
         expenses = [int(expense.strip("\n")) for expense in report.readlines()]
-
     values = get_three_numbers_sum_to(expenses=expenses, expected=2020)
     print(reduce(lambda x, y: x * y, values))
 
 
 if __name__ == "__main__":
     part_1()
-    part_2()
+    # part_2()

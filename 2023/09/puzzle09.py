@@ -1,4 +1,5 @@
 import aocd
+from pprint import pprint
 
 
 def get_data(day: int, lines: bool = True) -> str | list:
@@ -48,5 +49,6 @@ def part2(data):
 if __name__ == "__main__":
     day = 9
     data = get_data(day)
+    print(part2(data))
     # aocd.submit(part1(data), part="a", day=day, year=2023)
     # aocd.submit(part2(data), part="b", day=day, year=2023)

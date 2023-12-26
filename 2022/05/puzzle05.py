@@ -57,5 +57,6 @@ def part2(lines):
 if __name__ == "__main__":
     day = 5
     lines = get_lines(day)
+    print(part1(lines))
     # submit(part1(lines), part="a", day=day, year=2022)
-    submit(part2(lines), part="b", day=day, year=2022)
+    # submit(part2(lines), part="b", day=day, year=2022)

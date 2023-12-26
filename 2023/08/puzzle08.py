@@ -4,7 +4,7 @@ from math import lcm
 
 
 def get_data(day: int, lines: bool = True) -> str | list:
-    """Uses aocd to get the input then splits it into lines."""
+    """Use aocd to get the input then splits it into lines."""
     if lines:
         return aocd.get_data(day=day, year=2023).splitlines()
     else:
