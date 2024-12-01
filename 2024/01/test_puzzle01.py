@@ -1,16 +1,15 @@
 from puzzle01 import part1, part2
-
-SAMPLE_INPUT = """3   4
-4   3
-2   5
-1   3
-3   9
-3   3
-"""
+from aocd.models import Puzzle
 
 
-PART1_EXPECTED = 11
-PART2_EXPECTED = 31
+example = Puzzle(year=2024, day=1).examples[0]
+
+print(example)
+SAMPLE_INPUT = example.input_data
+
+
+PART1_EXPECTED = int(example.answer_a)
+PART2_EXPECTED = int(example.answer_b)
 
 
 def test_part1():
