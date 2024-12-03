@@ -1,4 +1,4 @@
-from puzzle02 import part1_with_all, part2
+from puzzle02 import part1, part2
 
 SAMPLE_INPUT = """7 6 4 2 1
 1 2 7 8 9
@@ -28,7 +28,7 @@ PART2_EXPECTED = 4
 
 
 def test_part1():
-    actual = part1_with_all(SAMPLE_INPUT.splitlines())
+    actual = part1(SAMPLE_INPUT.splitlines())
     assert actual == PART1_EXPECTED
 
 
