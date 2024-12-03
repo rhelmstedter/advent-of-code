@@ -1,5 +1,11 @@
 import aocd
 
+from aocd.models import Puzzle
+
+
+example = Puzzle(year=2024, day=1).examples[0]
+SAMPLE_INPUT = example.input_data
+
 
 def get_data(day: int, lines: bool = True) -> str | list:
     """Uses aocd to get the input then splits it into lines."""
@@ -10,19 +16,23 @@ def get_data(day: int, lines: bool = True) -> str | list:
 
 
 def build_lists(data):
-    llist = []
-    rlist = []
-    for line in data:
-        left, right = line.strip().split()
-        llist.append(int(left))
-        rlist.append(int(right))
-    return llist, rlist
+    # refactored to use zip and unpacking operator via HyperNeutrino
+    return zip(*[map(int, line.split()) for line in data])
+
+    # original solution
+    # llist = []
+    # rlist = []
+    # for line in data:
+    #     left, right = line.strip().split()
+    #     llist.append(int(left))
+    #     rlist.append(int(right))
+    # return llist, rlist
 
 
 def part1(data):
     """ """
-    left, right = build_lists(data)
-    return sum(abs(l - r) for l, r in zip(sorted(left), sorted(right)))
+    lists = build_lists(data)
+    return sum(abs(i - j) for i, j in zip(*map(sorted, lists)))
 
 
 def part2(data):
@@ -32,7 +42,8 @@ def part2(data):
 
 
 if __name__ == "__main__":
-    day = 1
-    data = get_data(day)
+    print(build_lists(SAMPLE_INPUT.splitlines()))
+    # day = 1
+    # data = get_data(day)
     # aocd.submit(part1(data), part="a", day=day, year=2024)
     # aocd.submit(part2(data), part="b", day=day, year=2024)

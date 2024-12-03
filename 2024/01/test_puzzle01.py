@@ -3,13 +3,11 @@ from aocd.models import Puzzle
 
 
 example = Puzzle(year=2024, day=1).examples[0]
-
-print(example)
 SAMPLE_INPUT = example.input_data
 
 
 PART1_EXPECTED = int(example.answer_a)
-PART2_EXPECTED = int(example.answer_b)
+PART2_EXPECTED = 31
 
 
 def test_part1():
