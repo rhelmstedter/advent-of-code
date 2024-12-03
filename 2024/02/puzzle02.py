@@ -73,7 +73,7 @@ def part1(data) -> int:
 
 
 @perf
-def part1_with_inelegant(data) -> int:
+def part1_with_for_loop(data) -> int:
     """Solved."""
     reports = [tuple(map(int, report.split())) for report in data]
     return sum(check_report(report) for report in reports)
@@ -87,7 +87,7 @@ def part2(data) -> int:
 
 
 @perf
-def part2_with_inelegant(data) -> int:
+def part2_with_for_loop(data) -> int:
     """Need to work on this, but too tired. Going to bed."""
     reports = [tuple(map(int, report.split())) for report in data]
     return sum(check_report_with_damper(report) for report in reports)
@@ -97,8 +97,8 @@ if __name__ == "__main__":
     day = 2
     data = get_data(day)
     print(part1(data))
-    print(part1_with_inelegant(data))
+    print(part1_with_for_loop(data))
     print(part2(data))
-    print(part2_with_inelegant(data))
+    print(part2_with_for_loop(data))
     # aocd.submit(part1(data), part="a", day=day, year=2024)
     # aocd.submit(part2(data), part="b", day=day, year=2024)
