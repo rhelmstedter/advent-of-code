@@ -33,16 +33,14 @@ def fix_bad_lines(line, order_stacks, page) -> None:
     return bad, line
 
 
-def identify_bad_line(line, order_stacks, page) -> None:
-    bad = False
+def is_bad(line, order_stacks, page) -> None:
     for i, page in enumerate(line):
         pages_in_rule = set(line) & set(order_stacks[page])
         if pages_in_rule and not all(
             line.index(page) < line.index(p) for p in pages_in_rule
         ):
-            bad = True
-            break
-    return bad
+            return True
+    return False
 
 
 def part1(data):
@@ -50,13 +48,13 @@ def part1(data):
     orders, reports = data.split("\n\n")
     order_stacks, page = build_order_stacks(orders)
 
-    good = []
+    total = 0
     for line in reports.splitlines():
         line = [int(x) for x in line.split(",")]
-        bad = identify_bad_line(line, order_stacks, page)
+        bad = is_bad(line, order_stacks, page)
         if not bad:
-            good.append(line[len(line) // 2])
-    return sum(good)
+            total += line[len(line) // 2]
+    return total
 
 
 def part2(data):
@@ -64,13 +62,13 @@ def part2(data):
     orders, reports = data.split("\n\n")
     order_stacks, page = build_order_stacks(orders)
 
-    good = []
+    total = 0
     for line in reports.splitlines():
         line = [int(x) for x in line.split(",")]
         bad, line = fix_bad_lines(line, order_stacks, page)
         if bad:
-            good.append(line[len(line) // 2])
-    return sum(good)
+            total += line[len(line) // 2]
+    return total
 
 
 if __name__ == "__main__":
