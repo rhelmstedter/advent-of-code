@@ -18,7 +18,8 @@ def build_order_stacks(orders) -> None:
     return order_stacks, page
 
 
-def fix_bad_lines(bad, line, order_stacks, page) -> None:
+def fix_bad_lines(line, order_stacks, page) -> None:
+    bad = False
     for i, page in enumerate(line):
         pages_in_rule = set(line) & set(order_stacks[page])
         if pages_in_rule and not all(
@@ -32,7 +33,8 @@ def fix_bad_lines(bad, line, order_stacks, page) -> None:
     return bad, line
 
 
-def identify_bad_line(bad, line, order_stacks, page) -> None:
+def identify_bad_line(line, order_stacks, page) -> None:
+    bad = False
     for i, page in enumerate(line):
         pages_in_rule = set(line) & set(order_stacks[page])
         if pages_in_rule and not all(
@@ -50,9 +52,8 @@ def part1(data):
 
     good = []
     for line in reports.splitlines():
-        bad = False
         line = [int(x) for x in line.split(",")]
-        bad = identify_bad_line(bad, line, order_stacks, page)
+        bad = identify_bad_line(line, order_stacks, page)
         if not bad:
             good.append(line[len(line) // 2])
     return sum(good)
@@ -65,9 +66,8 @@ def part2(data):
 
     good = []
     for line in reports.splitlines():
-        bad = False
         line = [int(x) for x in line.split(",")]
-        bad, line = fix_bad_lines(bad, line, order_stacks, page)
+        bad, line = fix_bad_lines(line, order_stacks, page)
         if bad:
             good.append(line[len(line) // 2])
     return sum(good)
