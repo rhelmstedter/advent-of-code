@@ -14,7 +14,7 @@ MXMXAXMASX
 
 
 PART1_EXPECTED = 18
-PART2_EXPECTED = ...
+PART2_EXPECTED = 9
 
 
 def test_part1():
