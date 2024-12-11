@@ -16,10 +16,10 @@ def part1(data):
     found = 0
     for row in range(HEIGHT):
         for col in range(WIDTH):
-            horizontal, h = "", "h"
-            vertical, v = "", "v"
-            backward_diagonal, b = "", "b"
-            forward_diagonal, f = "", "f"
+            horizontal = ""
+            vertical = ""
+            backward_diagonal = ""
+            forward_diagonal = ""
 
             if col <= WIDTH - 4:
                 horizontal = data[row][col : col + 4]
@@ -36,12 +36,13 @@ def part1(data):
                 for i in range(4):
                     forward_diagonal += data[row + i][col + i]
 
-            for dir, short in zip(
-                (horizontal, vertical, backward_diagonal, forward_diagonal),
-                (h, v, b, f),
+            for dir in (
+                horizontal,
+                vertical,
+                backward_diagonal,
+                forward_diagonal,
             ):
                 if dir == "XMAS" or dir == "SAMX":
-                    print("found:", short, f"at {row=}, {col=}")
                     found += 1
     return found
 
