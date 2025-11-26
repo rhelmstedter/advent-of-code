@@ -15,7 +15,7 @@ def get_data(day: int, lines: bool = True) -> str | list:
         return aocd.get_data(day=day, year=2024)
 
 
-def build_lists(data):
+def build_lists(data: list):
     # refactored to use zip and unpacking operator via HyperNeutrino
     return zip(*[map(int, line.split()) for line in data])
 
@@ -29,7 +29,7 @@ def build_lists(data):
     # return llist, rlist
 
 
-def part1(data):
+def part1(data: list):
     """ """
     lists = build_lists(data)
     return sum(abs(i - j) for i, j in zip(*map(sorted, lists)))
