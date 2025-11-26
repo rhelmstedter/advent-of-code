@@ -11,14 +11,15 @@ def get_data(day: int, lines: bool = True) -> str | list:
         return aocd.get_data(day=day, year=2018)
 
 
-# def remove_match(data: str) -> int:
-#     stack = []
-#     for unit in data:
-#         if stack and unit == stack[-1].swapcase():
-#             stack.pop()
-#         else:
-#             stack.append(unit)
-#     return "".join(stack)
+def remove_match_stack(data: str) -> int:
+    stack = []
+    for unit in data:
+        if stack and unit == stack[-1].swapcase():
+            stack.pop()
+        else:
+            stack.append(unit)
+    return "".join(stack)
+
 
 def remove_match(data: str) -> str:
     out = []
@@ -31,8 +32,7 @@ def remove_match(data: str) -> str:
                 return "".join(out)
         else:
             out.append(a)
-
-    out.append(b)
+    out.append(data[-1])  # Append the last character
     return "".join(out)
 
 
@@ -44,14 +44,22 @@ def solve_part1(data: str) -> int:
         if new_length == old_length:
             return new_length
         old_length = new_length
-
     return -1
+
+
+def solve_part2(data):
+    """ """
+    units = string.ascii_lowercase
+    result = []
+    for unit in units:
+        new_data = data.replace(unit, "").replace(unit.upper(), "")
+        result.append(solve_part1(new_data))
+    return min(result)
 
 
 def part1(data):
     """ """
-    new_data = remove_match(data)
-    return len(new_data)
+    return len(remove_match_stack(data))
 
 
 def part2(data):
@@ -67,7 +75,5 @@ def part2(data):
 if __name__ == "__main__":
     day = 5
     data = get_data(day, lines=False)
-    print(part1(data))
-    print(part2(data))
     # aocd.submit(part1(data), part="a", day=day, year=2018)
     # aocd.submit(part2(data), part="b", day=day, year=2018)
