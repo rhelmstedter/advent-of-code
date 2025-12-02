@@ -9,16 +9,13 @@ def get_data(day: int, lines: bool = True) -> str | list:
         return aocd.get_data(day=day, year=2025)
 
 
-ZERO = 0
-
-
 def part1(data):
     """ """
     ...
 
 
 def part2(data):
-    """Doesn't work yet."""
+    """ """
     ...
 
 
