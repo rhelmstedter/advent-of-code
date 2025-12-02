@@ -1,4 +1,4 @@
-from puzzle import part1, part2
+from puzzle01 import part1, part2
 
 SAMPLE_INPUT = """L68
 L30
