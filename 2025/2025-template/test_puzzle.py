@@ -1,20 +1,11 @@
 from puzzle import part1, part2
 
-SAMPLE_INPUT = """L68
-L30
-R48
-L5
-R60
-L55
-L1
-L99
-R14
-L82
+SAMPLE_INPUT = """
 """
 
 
-PART1_EXPECTED = 3
-PART2_EXPECTED = 6
+PART1_EXPECTED = ...
+PART2_EXPECTED = ...
 
 
 def test_part1():
