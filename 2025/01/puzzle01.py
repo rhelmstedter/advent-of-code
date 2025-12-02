@@ -1,5 +1,8 @@
 import aocd
 
+ZERO = 0
+UPPER = 100
+
 
 def get_data(day: int, lines: bool = True) -> str | list:
     """Uses aocd to get the input then splits it into lines."""
@@ -9,11 +12,9 @@ def get_data(day: int, lines: bool = True) -> str | list:
         return aocd.get_data(day=day, year=2025)
 
 
-ZERO = 0
-UPPER = 100
-
 def parse_move(direction):
     return int(direction.replace("L", "-").replace("R", "+"))
+
 
 def part1(data):
     """ """
