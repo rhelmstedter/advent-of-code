@@ -21,5 +21,6 @@ def part2(data):
 
 if __name__ == "__main__":
     day = ...
+    data = get_data(day)
     # aocd.submit(part1(data), part="a", day=day, year=2025)
     # aocd.submit(part2(data), part="b", day=day, year=2025)
