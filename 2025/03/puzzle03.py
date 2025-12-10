@@ -17,7 +17,7 @@ def part1(data):
     banks = [[int(b) for b in line] for line in data]
     for bank in banks:
         tens = max(bank[:-1])
-        ones = max(bank[bank.index(tens) + 1 :])
+        ones = max(bank[bank.index(tens) + 1:])
         total += tens * 10 + ones
     return total
 
@@ -31,8 +31,8 @@ def part2(data):
     for bank in banks:
         jolts = 0
         for i in range(11):
-            digit = max(bank[:i-11])
-            bank = bank[bank.index(digit) + 1 :]
+            digit = max(bank[:i - 11])
+            bank = bank[bank.index(digit) + 1:]
             jolts = jolts * 10 + digit
         jolts = jolts * 10 + max(bank)
         print(jolts)
