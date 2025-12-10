@@ -9,7 +9,7 @@ def get_data(day: int, lines: bool = True) -> str | list:
         return aocd.get_data(day=day, year=2025)
 
 
-neighbors = [
+NEIGHBORS = [
     (-1, -1),  # top left
     (-1, 0),  # top
     (-1, 1),  # top right
@@ -28,7 +28,7 @@ def part1(data):
         for c in range(len(data[r])):
             if data[r][c] == "@":
                 rolls = 0
-                for n in neighbors:
+                for n in NEIGHBORS:
                     try:
                         if (data[r + n[0]][c + n[1]] == "@" and (r + n[0] >= 0 and c + n[1] >= 0)):
                             rolls += 1
@@ -45,18 +45,19 @@ def part2(data):
     while True:
         data = [list(line) for line in data]
         about_to_remove = []
-        for r in range(len(data)):
-            for c in range(len(data[r])):
-                if data[r][c] == "@":
-                    rolls = 0
-                    for n in neighbors:
-                        try:
-                            if data[r + n[0]][c + n[1]] == "@" and (r + n[0] >= 0 and c + n[1] >= 0):
-                                rolls += 1
-                        except IndexError:
-                            pass
-                    if rolls < 4:
-                        about_to_remove.append((r, c))
+        for r, row in enumerate(data):
+            for c, col in enumerate(row):
+                if data[r][c] != "@":
+                    continue
+                rolls = 0
+                for n in NEIGHBORS:
+                    try:
+                        if data[r + n[0]][c + n[1]] == "@" and (r + n[0] >= 0 and c + n[1] >= 0):
+                            rolls += 1
+                    except IndexError:
+                        pass
+                if rolls < 4:
+                    about_to_remove.append((r, c))
         for r, c in about_to_remove:
             data[r][c] = "x"
         exes = sum(line.count("x") for line in data)
@@ -70,4 +71,4 @@ if __name__ == "__main__":
     day = 4
     data = get_data(day)
     # aocd.submit(part1(data), part="a", day=day, year=2025)
-    aocd.submit(part2(data), part="b", day=day, year=2025)
+    # aocd.submit(part2(data), part="b", day=day, year=2025)
